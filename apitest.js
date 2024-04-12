@@ -33,7 +33,7 @@ export function setup(element) {
   })
 
   document.querySelector("#getScore").addEventListener("click", () => {
-    getScore()
+    getScore(element)
   })
 }
 
@@ -56,12 +56,20 @@ export function postScore(score) {
     })
 }
 
-export function getScore() {
+export function getScore(element) {
   const url = "http://localhost:3000"
   throttleFetch(`${url}/score`)
     .then((response) => response.text())
     .then((text) => {
       console.log(text)
+      const scores = JSON.parse(text)
+      const list = document.createElement("ul")
+      scores.forEach((score) => {
+        const item = document.createElement("li")
+        item.textContent = `${score.name}: ${score.score}`
+        list.appendChild(item)
+      })
+      element.appendChild(list)
     })
     .catch((error) => {
       console.error(error)

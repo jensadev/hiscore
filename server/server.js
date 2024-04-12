@@ -28,6 +28,19 @@ app.get("/", (req, res) => {
   res.send("Hello World!")
 })
 
+app.get("/score", (req, res) => {
+  // här behöver vi prata med databasen och hämta hiscoren
+  // databasfråga
+  const result = [
+    { name: 'Johan', score: 100 },
+    { name: 'Anna', score: 200 },
+    { name: 'Kalle', score: 300 }
+  ]
+  console.log('request received from client', req.headers.origin)
+  // res.send("Score requested!")
+  res.json(result)
+})
+
 app.post("/score", (req, res) => {
   // Här behöver vi prata med databasen och spara hiscoren
   console.log('request received from client', req.headers.origin)
@@ -35,11 +48,6 @@ app.post("/score", (req, res) => {
   res.send("Score received!")
 })
 
-app.get("/score", (req, res) => {
-  // här behöver vi prata med databasen och hämta hiscoren
-  console.log('request received from client', req.headers.origin)
-  res.send("Score requested!")
-})
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
